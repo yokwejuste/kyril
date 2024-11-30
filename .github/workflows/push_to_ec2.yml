@@ -1,4 +1,4 @@
-name: Deploy Django and React to EC2 instance
+name: Deploy Django and Celery to EC2 instance
 
 on:
   push:
@@ -6,62 +6,41 @@ on:
       - main
 
 jobs:
-  deploy_files:
-    name: Deploy Files
+  deploy_project:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44.5.7
+        with:
+          since_last_remote_commit: true
+          separator: ","
+
       - name: Copy files via scp using SSH key
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.PORT }}
           source: "."
-          target: "/home/${{ secrets.USERNAME }}/${{ github.event.repository.name }}"
+          target: ${{ github.event.repository.name }}
 
-  setup_dependencies:
-    name: Setup Dependencies
-    needs: deploy_files
+  build_project:
+    name: Build
+    needs: deploy_project
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Django and React
+      - name: Executing remote SSH commands using SSH key
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd /home/${{ secrets.USERNAME }}/${{ github.event.repository.name }}/server
-            # Setup Django environment
-            if [ ! -d "venv" ]; then
-              python3 -m venv .venv
-            fi
-            source .venv/bin/activate
-            pip install -r requirements.txt
-            # Migrate the database
-            python manage.py migrate
-            # Install Node modules and build React app
-            cd ../client
-            npm install
-            npm run build
-
-  restart_services:
-    name: Restart Services
-    needs: setup_dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Restart Django and React via Supervisor
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.PORT }}
           script: |
             sudo supervisorctl reread
             sudo supervisorctl update
-            sudo supervisorctl restart django_app
-            sudo supervisorctl restart react_app
+            sudo supervisorctl restart all
