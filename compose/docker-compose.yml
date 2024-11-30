@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ..
+      dockerfile: compose/Dockerfile
+      target: server-build
+    volumes:
+      - ../server:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  client:
+    build:
+      context: ..
+      dockerfile: compose/Dockerfile
+      target: client-build
+    volumes:
+      - ../client:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+
+  redis:
+    image: redis:alpine
+    expose:
+      - "6379"
