@@ -3,7 +3,7 @@ name: Deploy Django and Celery to EC2 instance
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   deploy_project:
