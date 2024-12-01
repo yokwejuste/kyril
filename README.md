@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Project Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project includes a React frontend, Django backend, and uses WebSocket connections for real-time data updates. Below is the project structure and how to use the provided `make` commands for easy management.
 
-## Available Scripts
+## Project Structure
+    .
+    ├── build
+    │   ├── asset-manifest.json
+    │   ├── favicon.ico
+    │   ├── index.html
+    │   ├── logo192.png
+    │   ├── logo512.png
+    │   ├── manifest.json
+    │   ├── robots.txt
+    │   └── static
+    │       ├── css
+    │       │   ├── main.4291f673.css
+    │       │   └── main.4291f673.css.map
+    │       └── js
+    │           ├── main.396b15f1.js
+    │           ├── main.396b15f1.js.LICENSE.txt
+    │           └── main.396b15f1.js.map
+    ├── package.json
+    ├── package-lock.json
+    ├── postcss.config.js
+    ├── public
+    │   ├── favicon.ico
+    │   ├── index.html
+    │   ├── logo192.png
+    │   ├── logo512.png
+    │   ├── manifest.json
+    │   └── robots.txt
+    ├── src
+    │   ├── App.css
+    │   ├── App.js
+    │   ├── Form.js
+    │   ├── index.css
+    │   ├── index.js
+    │   └── Submissions.js
+    └── tailwind.config.js
+    
+    7 directories, 28 files
 
-In the project directory, you can run:
+## Commands
 
-### `npm start`
+Use the following commands to manage the project. You can run these commands by typing `make <command>` or simply `make` or `make help` to display the help utility for available commands.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### General Commands
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- `make up`: Start all services in detached mode.
+- `make down`: Take down all running services.
+- `make stop`: Stop services.
+- `make start`: Start services.
 
-### `npm test`
+### Django Backend Commands
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `make migrate`: Run database migrations.
+- `make migrations`: Create new database migrations based on model changes.
 
-### `npm run build`
+### Service Management
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `make start-server`: Start the Django backend.
+- `make stop-server`: Stop the Django backend.
+- `make start-client`: Start the React frontend.
+- `make stop-client`: Stop the React frontend.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Logs
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `make logs`: Follow log output from services.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For detailed information on each command and more utilities, run `make` or `make help`.
