@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import axios from 'axios';
 
 const SubmissionsForm = () => {
     const [formData, setFormData] = useState({
@@ -20,6 +21,17 @@ const SubmissionsForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitting data:", formData);
+
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/users/submissions/`, formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log("Submission successful");
+        } catch (error) {
+            console.error("Error submitting data:", error.response?.data || error.message);
+        }
     };
 
     return (
