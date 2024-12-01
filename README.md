@@ -5,22 +5,6 @@ This project includes a React frontend, Django backend, and uses WebSocket conne
 ## Project Structure
     .
     ├── client
-    │   ├── build
-    │   │   ├── asset-manifest.json
-    │   │   ├── favicon.ico
-    │   │   ├── index.html
-    │   │   ├── logo192.png
-    │   │   ├── logo512.png
-    │   │   ├── manifest.json
-    │   │   ├── robots.txt
-    │   │   └── static
-    │   │       ├── css
-    │   │       │   ├── main.4291f673.css
-    │   │       │   └── main.4291f673.css.map
-    │   │       └── js
-    │   │           ├── main.396b15f1.js
-    │   │           ├── main.396b15f1.js.LICENSE.txt
-    │   │           └── main.396b15f1.js.map
     │   ├── package.json
     │   ├── package-lock.json
     │   ├── postcss.config.js
@@ -68,7 +52,7 @@ This project includes a React frontend, Django backend, and uses WebSocket conne
             ├── schemas.py
             └── tests.py
     
-    13 directories, 51 files
+    9 directories, 39 files
 
 ## Commands
 
